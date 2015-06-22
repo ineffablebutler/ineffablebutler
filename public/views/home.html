@@ -1,0 +1,23 @@
+<div class="page-content">
+  <h1>MuniButler</h1>
+  <h4>Fast, reliable MUNI times for your commute to work and home.</h4>
+  <form ng-controller="HomeController" ng-submit="submit()">
+    <md-content layout-padding layout-sm="column">
+      <!-- input for home address -->
+      <md-input-container>
+        <label>To</label>
+        <input type="text" ng-model="user.to">
+      </md-input-container>
+      <!-- input for work address -->
+      <md-input-container>
+        <label>From</label>
+        <input type="text" ng-model="user.from">
+      </md-input-container>
+      <!-- md-input-container> -->
+        <md-button class="md-raised md-primary">Submit</md-button>
+          <!--  -->
+      <!-- </md-input-container> -->
+    </md-content>
+  </form>
+  <map zoom="18" center="[37.783724,-122.408978]" disable-default-u-i="true" disable-double-click-zoom="true" draggable="false" draggable-cursor="help" dragging-cursor="move" keyboard-shortcuts="false" max-zoom="12" min-zoom="8" tilt="45" map-type-id="TERRAIN"></map>
+</div>
