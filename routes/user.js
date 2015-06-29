@@ -5,6 +5,9 @@ var UserDB = require('../models/user');
 var authMethods = [{
   name: 'Google',
   url: '/auth/google'
+}, {
+  name: 'Facebook',
+  url: '/auth/facebook'
 }];
 
 //creating session routes
