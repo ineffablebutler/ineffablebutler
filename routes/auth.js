@@ -66,3 +66,4 @@ authRouter.get('/facebook/callback', passport.authenticate('facebook', {failureR
 });
 
 module.exports = authRouter;
+
