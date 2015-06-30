@@ -36,6 +36,15 @@ From within the root directory:
 npm install
 ```
 
+### Local Development
+
+Setting up MongoDB database (for creating Users and adding Routes):
+- From within root folder of the project, start MongoDB: mongod
+- Run 'mongo'
+
+Populating Database with 511 Routes and Stop Codes
+- In worker file run 'node 511xmlfetcher.js' to populate DB with stop codes/routes
+
 ## External APIs
 
 - Google Maps API: [https://developers.google.com/maps/documentation/javascript/?hl=de](https://developers.google.com/maps/documentation/javascript/?hl=de)
