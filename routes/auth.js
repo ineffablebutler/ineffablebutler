@@ -1,8 +1,10 @@
 var express = require('express');
 var passport = require('passport');
 var GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
+var FacebookStrategy = require('passport-facebook').Strategy;
 var UserDB = require('../models/user');
 var googleConfig = require('../config/googleConfig');
+var facebookConfig = require('../config/facebookConfig');
 var authRouter = express.Router();
 
 passport.serializeUser(function (user, done) {
@@ -41,4 +43,27 @@ authRouter.get('/google/callback', passport.authenticate('google', {
   res.redirect('/');
 });
 
+passport.use(new FacebookStrategy(facebookConfig, function(accessToken, refreshToken, profile, done){
+  console.log("profile is...",profile);
+  UserDB.findOrCreate({
+    facebookId: profile.id,
+    loginMethod: profile.provider,
+    displayName: profile.displayName
+  }, function(err,user,created){
+    if(err) {
+      console.log("error:", err);
+    }
+    console.log("created", created, user, accessToken, refreshToken);
+    return done(null, profile);
+  });
+}));
+
+authRouter.get('/facebook', passport.authenticate('facebook'));
+authRouter.get('/facebook/callback', passport.authenticate('facebook', {failureRedirect: '/'}), 
+  function(req, res){
+    // Successful authentication, redirect home.
+    res.redirect('/');
+});
+
 module.exports = authRouter;
+
