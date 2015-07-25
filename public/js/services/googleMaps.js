@@ -13,15 +13,9 @@ muniButlerApp.factory('GoogleMaps', function ($q) {
         }
       ]
     }
-
-
     */
 
-    console.log(from, to);
-
     return $q(function (resolve, reject) {
-
-      console.log(from, to);
 
       // Create Google Maps Direction Service object
       var directions = new google.maps.DirectionsService();
