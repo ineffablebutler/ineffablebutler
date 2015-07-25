@@ -6,7 +6,6 @@ muniButlerApp.factory('Auth', function ($http) {
   };
 
   var update = function (user) {
-    console.log("user: ", user);
     return $http.put('/api/user', user, {
       withCredentials: true
     });

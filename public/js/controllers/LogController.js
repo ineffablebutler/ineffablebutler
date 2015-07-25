@@ -34,7 +34,7 @@ muniButlerApp.controller('LogController', function ($scope, Auth, User) {
         return $scope.logincheck();
       })
       .catch(function (err) {
-        console.log(err);
+        throw new Error(err);
         return;
       });
   };
