@@ -17,11 +17,9 @@ var authRouter = express.Router();
 // serializeUser is only called during authentication, which indicates what user information to store
 // deserializeUser is invoked on every request by passport.sessions (making req.user object available in request handler)
 passport.serializeUser(function (user, done) {
-  console.log("serializeUser");
   done(null, user);
 });
 passport.deserializeUser(function (obj, done) {
-  console.log("deserializeUser");
   done(null, obj);
 });
 
@@ -33,9 +31,8 @@ var saveUser = function (accessToken, refreshToken, profile, done) {
     displayName: profile.displayName
   }, function (err, user, created) {
     if (err) {
-      console.log("error:", err);
+      throw new Error("error:" + err);
     }
-    console.log("created:", created, user, accessToken, refreshToken);
     return done(null, profile);
   });
 };
@@ -57,7 +54,6 @@ authRouter.get('/google', passport.authenticate('google', {
 authRouter.get('/google/callback', passport.authenticate('google', {
   failureRedirect: '/'
 }), function (req, res) {
-  console.log("req user", req.user);
   // Successful authentication, redirect home.
   res.redirect('/');
 });

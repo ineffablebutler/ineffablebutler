@@ -45,7 +45,7 @@ busRouter.get('/', function (req, res) {
     }
   }).exec(function (err, stopCode) {
     if (err) {
-      console.log("error: ", err);
+      throw new Error("error: " + err);
     } 
 
     if (stopCode.length > 0) {
