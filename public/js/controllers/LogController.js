@@ -1,4 +1,4 @@
-muniButlerApp.controller('LogController', function ($scope, Auth, User) {
+muniButlerApp.controller('LogController', function ($scope, $location, Auth, User) {
   // controller for the index page
   // author: Albert Tang
 
@@ -31,6 +31,7 @@ muniButlerApp.controller('LogController', function ($scope, Auth, User) {
     Auth.logout()
       .then(function (resp) {
         $scope.loggedin = false;
+        $location.path('/');
         return $scope.logincheck();
       })
       .catch(function (err) {
