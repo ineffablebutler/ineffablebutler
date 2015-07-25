@@ -51,8 +51,8 @@ muniButlerApp.controller('HomeController', function ($scope, $location, User, Au
   }
 
   function error() {
-    console.log('Geolocation failed');
     $scope.setMap(new google.maps.LatLng(37.7837235, -122.4089778));
+    throw new Error("Geolocation failed.")
   }
 
   // use the GoogleMaps factory to update the map
