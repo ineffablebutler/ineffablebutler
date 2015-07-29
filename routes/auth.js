@@ -30,6 +30,8 @@ var saveUser = function (accessToken, refreshToken, profile, done) {
     loginMethod: profile.provider,
     displayName: profile.displayName
   }, function (err, user, created) {
+    console.log(err);
+    console.log(user);
     if (err) {
       throw new Error("error:" + err);
     }
@@ -50,21 +52,15 @@ passport.use(new FacebookStrategy(facebookConfig, function (accessToken, refresh
 authRouter.get('/google', passport.authenticate('google', {
   scope: 'profile'
 }));
+
 //after successful authentication, user is sent back to homepage
 authRouter.get('/google/callback', passport.authenticate('google', {
-  failureRedirect: '/'
-}), function (req, res) {
-  // Successful authentication, redirect home.
-  res.redirect('/');
-});
+  successRedirect: '/', failureRedirect: '/'
+}));
 
 authRouter.get('/facebook', passport.authenticate('facebook'));
 
-authRouter.get('/facebook/callback', passport.authenticate('facebook', {failureRedirect: '/'}), 
-  function(req, res){
-    // Successful authentication, redirect home.
-    res.redirect('/');
-});
+authRouter.get('/facebook/callback', passport.authenticate('facebook', {successRedirect: '/', failureRedirect: '/'}));
 
 module.exports = authRouter; 
 
