@@ -42,11 +42,13 @@ var saveUser = function (accessToken, refreshToken, profile, done) {
 //creates new Google Strategy/Facebook Strategy and passes along clientID/secret from googleConfig/facebookConfig (both obtained from respective Dev Console)
 passport.use(new GoogleStrategy(googleConfig, function (accessToken, refreshToken, profile, done) {
   console.log('googleConfig ', googleConfig);
+  console.log('process.stdout googleConfig ', googleConfig);
   saveUser(accessToken, refreshToken, profile, done);
 }));
 
 passport.use(new FacebookStrategy(facebookConfig, function (accessToken, refreshToken, profile, done) {
   console.log('fbConfig ', facebookConfig);
+  console.log('process.stdout fbCongig ', facebookConfig);
   saveUser(accessToken, refreshToken, profile, done);
 }));
 
