@@ -1,10 +1,10 @@
-
+var env = require('../env.js');
 //facebook clientId and Secret from https://developers.facebook.com/apps
 //This file is used with /config/routes/auth.js to authenticate FB users
 var facebookConfig = {
-    clientID: '130802563917598',
-    clientSecret: '7a1bb563a6dfebb5c4992bf21470d5ad',
-    callbackURL: "http://127.0.0.1:3000/auth/facebook/callback",
+    clientID: env.fbClientId,
+    clientSecret: env.fbClientSecret,
+    callbackURL: env.fbCb,
     enableProof: false
   };
 

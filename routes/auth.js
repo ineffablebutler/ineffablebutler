@@ -17,11 +17,9 @@ var authRouter = express.Router();
 // serializeUser is only called during authentication, which indicates what user information to store
 // deserializeUser is invoked on every request by passport.sessions (making req.user object available in request handler)
 passport.serializeUser(function (user, done) {
-  console.log("serializeUser");
   done(null, user);
 });
 passport.deserializeUser(function (obj, done) {
-  console.log("deserializeUser");
   done(null, obj);
 });
 
@@ -32,20 +30,25 @@ var saveUser = function (accessToken, refreshToken, profile, done) {
     loginMethod: profile.provider,
     displayName: profile.displayName
   }, function (err, user, created) {
+    console.log(err);
+    console.log(user);
     if (err) {
-      console.log("error:", err);
+      throw new Error("error:" + err);
     }
-    console.log("created:", created, user, accessToken, refreshToken);
     return done(null, profile);
   });
 };
 
 //creates new Google Strategy/Facebook Strategy and passes along clientID/secret from googleConfig/facebookConfig (both obtained from respective Dev Console)
 passport.use(new GoogleStrategy(googleConfig, function (accessToken, refreshToken, profile, done) {
+  console.log('googleConfig ', googleConfig);
+  console.log('process.stdout googleConfig ', googleConfig);
   saveUser(accessToken, refreshToken, profile, done);
 }));
 
 passport.use(new FacebookStrategy(facebookConfig, function (accessToken, refreshToken, profile, done) {
+  console.log('fbConfig ', facebookConfig);
+  console.log('process.stdout fbCongig ', facebookConfig);
   saveUser(accessToken, refreshToken, profile, done);
 }));
 
@@ -53,22 +56,15 @@ passport.use(new FacebookStrategy(facebookConfig, function (accessToken, refresh
 authRouter.get('/google', passport.authenticate('google', {
   scope: 'profile'
 }));
+
 //after successful authentication, user is sent back to homepage
 authRouter.get('/google/callback', passport.authenticate('google', {
-  failureRedirect: '/'
-}), function (req, res) {
-  console.log("req user", req.user);
-  // Successful authentication, redirect home.
-  res.redirect('/');
-});
+  successRedirect: '/', failureRedirect: '/'
+}));
 
 authRouter.get('/facebook', passport.authenticate('facebook'));
 
-authRouter.get('/facebook/callback', passport.authenticate('facebook', {failureRedirect: '/'}), 
-  function(req, res){
-    // Successful authentication, redirect home.
-    res.redirect('/');
-});
+authRouter.get('/facebook/callback', passport.authenticate('facebook', {successRedirect: '/', failureRedirect: '/'}));
 
 module.exports = authRouter; 
 

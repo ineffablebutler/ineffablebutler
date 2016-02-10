@@ -6,7 +6,6 @@
 ************************************************************/
 
 body {
-
   padding: 20px 50px 50px;
 	color: #5d4f4f;
 }
@@ -14,6 +13,13 @@ body {
 a {
   color: #00B7FF;
   position: relative;
+}
+
+footer {
+  font-size: 11px;
+  position: absolute;
+  margin-top: 50px;
+  bottom: 10;
 }
 
 .md-body-2 {
